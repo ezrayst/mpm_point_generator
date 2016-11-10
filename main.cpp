@@ -30,8 +30,6 @@ int main()
 	int i;
 	int j;
 
-	std::ofstream filename("mpm_points.txt");
-
 	// Input the left bottom and right top coordinates
 	// Users will need to type the coordinate
 	// Test: (x1,y1,x2,y2) = (0,0,1,1)
@@ -60,6 +58,9 @@ int main()
 	// Generate points
 	// Naming goes from 0 to n^2, started at bottom left to the right and then up
 	// points: [Node#   x-coor   y-coor]
+	// The points will be saved to a .txt file
+
+	std::ofstream filename("mpm_points.txt");
 
 	double points[n*n][3];          // the distance of every point in y-direction
 
