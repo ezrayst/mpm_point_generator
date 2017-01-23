@@ -18,6 +18,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <array>
+#include <vector>
 
 using namespace std;
 
@@ -25,7 +27,7 @@ int main()
 {
 	double x1, y1;
 	double x2, y2;
-	int i, j, n, m, p;
+	int i, j, k, n, m, p;
 	double hx;          // the distance of every point in x-direction
 	double hy;          // the distance of every point in y-direction
 
@@ -49,24 +51,28 @@ int main()
 
 	hx = (x2 - x1) / (m - 1);
 	hy = (y2 - y1) / (n - 1);
+	p = m*n;
 
-	double points[m*n][3];          // the distance of every point in y-direction
+	std::vector<double> xarr(p);
+	std::vector<double> yarr(p);
+
 	for (i=0; i < n; ++i)			// i is respect to y
 		for (j=0; j < m; ++j)		// j is respect to x
 		{
-			p = i*n + j;
-			points[p][1] = x1 + j*hx;
-			points[p][2] = y1 + i*hy;
+			k = i*n + j;
+			xarr[k] = x1 + j*hx;
+			yarr[k] = y1 + i*hy;
 		}
 
-	std::ofstream filename("mpm_points.txt");
+	std::ofstream mpm_points("mpm_points.txt");
 	for (i=0; i < n; ++i)			// i is respect to y
 		for (j=0; j < m; ++j)		// j is respect to x
 		{
-			p = i*n + j;
-			filename << points[p][1] << "," << points[p][2] << "\n";
+			k = i*n + j;
+			mpm_points << xarr[k] << "," << yarr[k] << "\n";
 		}
-	filename.close();
+	mpm_points.close();
+
 	cout << "The file has been generated.";
 }
 
