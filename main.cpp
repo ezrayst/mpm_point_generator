@@ -18,12 +18,13 @@
 
 #include <iostream>
 #include <fstream>
+#include <array>
 #include <vector>
 
 struct mat_points
 {
-	double xcord;
-	double ycord;
+	int id;
+	std::array<double, 2> coord;
 };
 
 int main()
@@ -58,14 +59,15 @@ int main()
 		for (int j=0; j < num_points_x; ++j)		// j is respect to x
 		{
 			int k = i*num_points_y + j;
-			points.at(k).xcord = x1 + j*x_spacing;
-			points.at(k).ycord = y1 + i*y_spacing;
+			points.at(k).id = k;
+			points.at(k).coord.at(0) = x1 + j*x_spacing;
+			points.at(k).coord.at(1) = y1 + i*y_spacing;
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
 	for (auto &point : points)
 	{
-		mpm_points << point.xcord << "," << point.ycord << "\n";
+		mpm_points << point.id << "," << point.coord.at(0) << "," << point.coord.at(1) << "\n";
 	}
 	mpm_points.close();
 
