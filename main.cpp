@@ -20,6 +20,12 @@
 #include <fstream>
 #include <vector>
 
+struct mat_points
+{
+	double xcord;
+	double ycord;
+};
+
 int main()
 {
 	double x1, y1;
@@ -39,25 +45,24 @@ int main()
 	std::cout << "Enter right top corner coordinate (y2): \n";
 	std::cin >> y2;
 
-	std::cout << "Enter the number of grid points in x direction (m): \n";
-	std::cin >> num_points_x;
+	std::cout << "Enter the spacing in x direction (x_spacing): \n";
+	std::cin >> x_spacing;
 
-	std::cout << "Enter the number of grid points in y direction (n): \n";
-	std::cin >> num_points_y;
+	std::cout << "Enter the spacing in y direction (y_spacing):  \n";
+	std::cin >> y_spacing;
 
-	x_spacing = (x2 - x1) / (num_points_x - 1);
-	y_spacing = (y2 - y1) / (num_points_y - 1);
-	num_points = num_points_x*num_points_y;
+	num_points_x = (x2 - x1) / x_spacing + 1;
+	num_points_y = (y2 - y1) / y_spacing + 1;
+	num_points = num_points_x * num_points_y;
 
-	std::vector<double> xarr(num_points);
-	std::vector<double> yarr(num_points);
+	std::vector<mat_points> points_coord(num_points);
 
 	for (i=0; i < num_points_y; ++i)			// i is respect to y
 		for (j=0; j < num_points_x; ++j)		// j is respect to x
 		{
 			k = i*num_points_y + j;
-			xarr[k] = x1 + j*x_spacing;
-			yarr[k] = y1 + i*y_spacing;
+			points_coord[k].xcord = x1 + j*x_spacing;
+			points_coord[k].ycord = y1 + i*y_spacing;
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
@@ -65,7 +70,7 @@ int main()
 		for (j=0; j < num_points_x; ++j)		// j is respect to x
 		{
 			k = i*num_points_y + j;
-			mpm_points << xarr[k] << "," << yarr[k] << "\n";
+			mpm_points << points_coord[k].xcord << "," << points_coord[k].ycord << "\n";
 		}
 	mpm_points.close();
 
