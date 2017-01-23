@@ -58,8 +58,8 @@ int main()
 		for (int j=0; j < num_points_x; ++j)		// j is respect to x
 		{
 			int k = i*num_points_y + j;
-			points[k].xcord = x1 + j*x_spacing;
-			points[k].ycord = y1 + i*y_spacing;
+			points.at(k).xcord = x1 + j*x_spacing;
+			points.at(k).ycord = y1 + i*y_spacing;
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
