@@ -28,10 +28,7 @@ struct mat_points
 
 int main()
 {
-	double x1, y1;
-	double x2, y2;
-	int i, j, k, num_points_x, num_points_y, num_points;
-	double x_spacing, y_spacing;
+	double x1, x2, y1, y2, x_spacing, y_spacing;
 
 	std::cout << "Enter left bottom corner coordinate (x1): \n";
 	std::cin >> x1;
@@ -51,27 +48,25 @@ int main()
 	std::cout << "Enter the spacing in y direction (y_spacing):  \n";
 	std::cin >> y_spacing;
 
-	num_points_x = (x2 - x1) / x_spacing + 1;
-	num_points_y = (y2 - y1) / y_spacing + 1;
-	num_points = num_points_x * num_points_y;
+	const int num_points_x = (x2 - x1) / x_spacing + 1;
+	const int num_points_y = (y2 - y1) / y_spacing + 1;
+	const int num_points = num_points_x * num_points_y;
 
-	std::vector<mat_points> points_coord(num_points);
+	std::vector<mat_points> points(num_points);
 
-	for (i=0; i < num_points_y; ++i)			// i is respect to y
-		for (j=0; j < num_points_x; ++j)		// j is respect to x
+	for (int i=0; i < num_points_y; ++i)			// i is respect to y
+		for (int j=0; j < num_points_x; ++j)		// j is respect to x
 		{
-			k = i*num_points_y + j;
-			points_coord[k].xcord = x1 + j*x_spacing;
-			points_coord[k].ycord = y1 + i*y_spacing;
+			int k = i*num_points_y + j;
+			points[k].xcord = x1 + j*x_spacing;
+			points[k].ycord = y1 + i*y_spacing;
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
-	for (i=0; i < num_points_y; ++i)			// i is respect to y
-		for (j=0; j < num_points_x; ++j)		// j is respect to x
-		{
-			k = i*num_points_y + j;
-			mpm_points << points_coord[k].xcord << "," << points_coord[k].ycord << "\n";
-		}
+	for (auto &point : points)
+	{
+		mpm_points << point.xcord << "," << point.ycord << "\n";
+	}
 	mpm_points.close();
 
 	std::cout << "The file has been generated.";
