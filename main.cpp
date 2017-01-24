@@ -23,9 +23,6 @@
 
 class mat_points
 {
-private:
-	int id_;
-	std::array<double, 2> coords_;
 public:
 	mat_points(int id, std::array<double, 2> coords)
 	{
@@ -40,6 +37,9 @@ public:
 	{
 		return coords_;
 	}
+private:
+	int id_;
+	std::array<double, 2> coords_;
 };
 
 int main()
