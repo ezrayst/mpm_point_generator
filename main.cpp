@@ -21,10 +21,25 @@
 #include <array>
 #include <vector>
 
-struct mat_points
+class mat_points
 {
-	int id;
-	std::array<double, 2> coord;
+private:
+	int id_;
+	std::array<double, 2> coords_;
+public:
+	mat_points(int id, std::array<double, 2> coords)
+	{
+		id_ = id;
+		coords_ = coords;
+	}
+	int get_id()
+	{
+		return id_;
+	}
+	std::array<double, 2> get_coords()
+	{
+		return coords_;
+	}
 };
 
 int main()
@@ -51,23 +66,22 @@ int main()
 
 	const int num_points_x = (x2 - x1) / x_spacing + 1;
 	const int num_points_y = (y2 - y1) / y_spacing + 1;
-	const int num_points = num_points_x * num_points_y;
 
-	std::vector<mat_points> points(num_points);
+	std::vector<mat_points> points;
 
 	for (int i=0; i < num_points_y; ++i)			// i is respect to y
 		for (int j=0; j < num_points_x; ++j)		// j is respect to x
 		{
 			int k = i*num_points_y + j;
-			points.at(k).id = k;
-			points.at(k).coord.at(0) = x1 + j*x_spacing;
-			points.at(k).coord.at(1) = y1 + i*y_spacing;
+			std::array<double, 2> coord{{x1 + j*x_spacing, y1 + i*y_spacing}};
+			mat_points dummy_points(k, coord);
+			points.at(k) = dummy_points;
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
 	for (auto &point : points)
 	{
-		mpm_points << point.id << "," << point.coord.at(0) << "," << point.coord.at(1) << "\n";
+		mpm_points << point.get_id() << "," << point.get_coords().at(0) << "," << point.get_coords().at(1) << "\n";
 	}
 	mpm_points.close();
 
