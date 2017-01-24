@@ -75,7 +75,7 @@ int main()
 			int k = i*num_points_y + j;
 			std::array<double, 2> coord{{x1 + j*x_spacing, y1 + i*y_spacing}};
 			mat_points dummy_points(k, coord);
-			points.at(k) = dummy_points;
+			points.push_back(dummy_points);
 		}
 
 	std::ofstream mpm_points("mpm_points.txt");
