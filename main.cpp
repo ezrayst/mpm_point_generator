@@ -8,15 +8,6 @@
 //                         (m)     making n grid in x-direction
 //						   (n)     making m grid in y-direction
 //
-//
-// Input the left bottom and right top coordinates
-// Users will need to type the coordinate
-// Test: (x1,y1,x2,y2) = (0,0,1,1)
-//                 (m) = (3)
-//                 (n) = (3)
-// Generate points
-// points: [Node#   x-coor   y-coor]
-// The points will be saved to a .txt file
 
 #include <iostream>
 #include <fstream>
@@ -51,6 +42,12 @@ int main()
 
 	std::ifstream inputFile;
 	inputFile.open("input_coords.txt");
+
+	if (inputFile.fail())
+	{
+		std::cerr << "Error: input file cannot be read.";
+		exit(1);
+	}
 
 	inputFile >> x1 >> y1 >> x2 >> y2 >> x_spacing >> y_spacing;
 
