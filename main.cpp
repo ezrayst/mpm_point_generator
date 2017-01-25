@@ -1,8 +1,10 @@
 // MPM Point Generator
 //
 // The main code to generate points within a rectangle
-// Rectangular with input: (x1,y1) coordinates left bottom corner
-//                         (x2,y2) coordinates right top corner
+// Rectangular with input: (x1) x-coordinate left bottom corner
+//                         (y1) y-coordinate left bottom corner
+//                         (x2) x-coordinate right top corner
+//                         (y2) y-coordinate right top corner
 //                         (m)     making n grid in x-direction
 //						   (n)     making m grid in y-direction
 //
@@ -20,6 +22,7 @@
 #include <fstream>
 #include <array>
 #include <vector>
+#include <memory>
 
 class mat_points
 {
@@ -46,23 +49,12 @@ int main()
 {
 	double x1, x2, y1, y2, x_spacing, y_spacing;
 
-	std::cout << "Enter left bottom corner coordinate (x1): \n";
-	std::cin >> x1;
+	std::ifstream inputFile;
+	inputFile.open("input_coords.txt");
 
-	std::cout << "Enter left bottom corner coordinate (y1): \n";
-	std::cin >> y1;
+	inputFile >> x1 >> y1 >> x2 >> y2 >> x_spacing >> y_spacing;
 
-	std::cout << "Enter right top corner coordinate (x2): \n";
-	std::cin >> x2;
-
-	std::cout << "Enter right top corner coordinate (y2): \n";
-	std::cin >> y2;
-
-	std::cout << "Enter the spacing in x direction (x_spacing): \n";
-	std::cin >> x_spacing;
-
-	std::cout << "Enter the spacing in y direction (y_spacing):  \n";
-	std::cin >> y_spacing;
+	std::cout << "The input file has been read." << "\n";
 
 	const int num_points_x = (x2 - x1) / x_spacing + 1;
 	const int num_points_y = (y2 - y1) / y_spacing + 1;
@@ -78,14 +70,14 @@ int main()
 			points.push_back(dummy_points);
 		}
 
-	std::ofstream mpm_points("mpm_points.txt");
+	std::ofstream outputFile("mpm_points.txt");
 	for (auto &point : points)
 	{
-		mpm_points << point.get_id() << "," << point.get_coords().at(0) << "," << point.get_coords().at(1) << "\n";
+		outputFile << point.get_id() << "," << point.get_coords().at(0) << "," << point.get_coords().at(1) << "\n";
 	}
-	mpm_points.close();
+	outputFile.close();
 
-	std::cout << "The file has been generated.";
+	std::cout << "The output file has been generated.";
 }
 
 
