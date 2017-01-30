@@ -50,7 +50,8 @@ int main()
 	}
 
 	inputFile >> x1 >> y1 >> x2 >> y2 >> x_spacing >> y_spacing;
-
+	inputFile.close();
+	
 	std::cout << "The input file has been read." << "\n";
 
 	const int num_points_x = (x2 - x1) / x_spacing + 1;
