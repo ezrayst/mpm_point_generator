@@ -15,26 +15,7 @@
 #include <vector>
 #include <memory>
 
-class mat_points
-{
-public:
-	mat_points(int id, std::array<double, 2> coords)
-	{
-		id_ = id;
-		coords_ = coords;
-	}
-	int get_id()
-	{
-		return id_;
-	}
-	std::array<double, 2> get_coords()
-	{
-		return coords_;
-	}
-private:
-	int id_;
-	std::array<double, 2> coords_;
-};
+#include "point.h"
 
 int main()
 {
@@ -70,8 +51,7 @@ int main()
 	std::ofstream outputFile("mpm_points.txt");
 	for (auto &point : points)
 	{
-		auto p = point.get();
-		outputFile << p->get_id() << "," << p->get_coords().at(0) << "," << p->get_coords().at(1) << "\n";
+		outputFile << point->id() << "," << point->coords().at(0) << "," << point->coords().at(1) << "\n";
 //		std::cout << "Count before = " << point.use_count() << '\n';
 		point.reset();
 //		std::cout << "Count after = " << point.use_count() << '\n';
