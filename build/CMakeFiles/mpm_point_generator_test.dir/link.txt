@@ -1,1 +1,0 @@
-/usr/bin/c++    -fpermissive -fpic -fopenmp -g   CMakeFiles/mpm_point_generator_test.dir/tests/test.cc.o CMakeFiles/mpm_point_generator_test.dir/tests/point_test.cc.o  -o mpm_point_generator_test -rdynamic 

@@ -1,5 +1,0 @@
-//home/eyst/cb-geo/mpm_point_generator/build/CMakeFiles/test.dir
-//home/eyst/cb-geo/mpm_point_generator/build/CMakeFiles/mpm_point_generator.dir
-//home/eyst/cb-geo/mpm_point_generator/build/CMakeFiles/mpm_point_generator_test.dir
-//home/eyst/cb-geo/mpm_point_generator/build/CMakeFiles/rebuild_cache.dir
-//home/eyst/cb-geo/mpm_point_generator/build/CMakeFiles/edit_cache.dir
