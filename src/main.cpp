@@ -22,7 +22,7 @@ int main()
 	double x1, x2, y1, y2, x_spacing, y_spacing;
 
 	std::ifstream inputFile;
-	inputFile.open("input_coords.txt");
+	inputFile.open("../bin/input_coords.txt");
 
 	if (inputFile.fail())
 	{
@@ -48,7 +48,7 @@ int main()
 			std::shared_ptr<mat_points> dummy_points = std::make_shared<mat_points>(k, coord);
 			points.push_back(dummy_points);
 		}
-	std::ofstream outputFile("mpm_points.txt");
+	std::ofstream outputFile("../bin/mpm_points.txt");
 	for (auto &point : points)
 	{
 		outputFile << point->id() << "," << point->coords().at(0) << "," << point->coords().at(1) << "\n";
