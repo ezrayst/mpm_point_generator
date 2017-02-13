@@ -23,7 +23,7 @@ int main()
 	
 	try
 	{
-		// Reading input file
+		//! Reading input file
 		std::ifstream inputFile;
 		inputFile.open("../bin/input_coords.txt");
 
@@ -39,20 +39,20 @@ int main()
 	catch (char const* errormesg)
 	{
 			std::cerr << errormesg;
-			exit(EXIT_FAILURE);
+			return EXIT_FAILURE;
 	}
 
 	
 	std::cout << "The input file has been read." << "\n";
 	
-	// Main calculation
+	//! Main calculation
 	const int num_points_x = (x2 - x1) / x_spacing + 1;
 	const int num_points_y = (y2 - y1) / y_spacing + 1;
 
 	std::vector<std::shared_ptr<MaterialPoint>> points;
 
-	for (int i=0; i < num_points_y; ++i)			// i is respect to y
-		for (int j=0; j < num_points_x; ++j)		// j is respect to x
+	for (int i=0; i < num_points_y; ++i)			//!< i is respect to y
+		for (int j=0; j < num_points_x; ++j)		//!< j is respect to x
 		{
 			int k = i*num_points_y + j;
 			std::array<double, 2> coord{{x1 + j*x_spacing, y1 + i*y_spacing}};
@@ -60,7 +60,7 @@ int main()
 			points.push_back(dummy_points);
 		}
 	std::ofstream outputFile("../bin/mpm_points.txt");
-	for (auto &point : points)
+	for (auto& point : points)
 	{
 		outputFile << point->id() << "," << point->coords().at(0) << "," << point->coords().at(1) << "\n";
 		point.reset();
