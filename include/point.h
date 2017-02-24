@@ -4,7 +4,7 @@ class MaterialPoint
 {
 public:
 	//! Make a constructor
-	MaterialPoint(int id, const std::array<double, 2> coords)
+	MaterialPoint(unsigned id, const std::array<double, 2> coords)
 	{
 		id_ = id;
 		coords_ = coords;
@@ -12,7 +12,7 @@ public:
 
 	//! Get the private properties using two functions
 	//! To get the id_ and coords_
-	int const id()
+	unsigned const id()
 	{
 		return id_;
 	}
@@ -23,6 +23,6 @@ public:
 
 private:
 	//! These are the parameters of the class MaterialPoint
-	int id_;
+	unsigned id_;
 	std::array<double, 2> coords_;
 };
