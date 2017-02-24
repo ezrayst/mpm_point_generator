@@ -1,13 +1,13 @@
-// MPM Point Generator
-//
-// The main code to generate points within a rectangle
-// Rectangular with input: (x1) x-coordinate left bottom corner
-//                         (y1) y-coordinate left bottom corner
-//                         (x2) x-coordinate right top corner
-//                         (y2) y-coordinate right top corner
-//                         (m)     making n grid in x-direction
-//                         (n)     making m grid in y-direction
-//
+//! MPM Point Generator
+//!
+//! The main code to generate points within a rectangle
+//! Rectangular with input: (x1) x-coordinate left bottom corner
+//!                         (y1) y-coordinate left bottom corner
+//!                         (x2) x-coordinate right top corner
+//!                         (y2) y-coordinate right top corner
+//!                         (m)     making n grid in x-direction
+//!                         (n)     making m grid in y-direction
+//!
 
 #include <iostream>
 #include <fstream>
