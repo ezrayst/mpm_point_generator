@@ -24,25 +24,25 @@ int main() {
     //! Error would be reported
 
     //! User input inputFilename and outputFilename
-    std::string inputFilename;
-    std::string outputFilename;
+    std::string inputfilename;
+    std::string outputfilename;
 
     std::cout << "Type the input file name, default: [../bin/input_coords.txt]: ";
-    std::getline(std::cin, inputFilename);
+    std::getline(std::cin, inputfilename);
 
-    if (inputFilename == "")
-      inputFilename = "../bin/input_coords.txt";
+    if (inputfilename == "")
+      inputfilename = "../bin/input_coords.txt";
 
     std::cout << "Type the output file name, default: [../bin/mpm_points.txt]: ";  
-    std::getline(std::cin, outputFilename);
+    std::getline(std::cin, outputfilename);
    
-    if (outputFilename == "")
-      outputFilename = "../bin/mpm_points.txt";
+    if (outputfilename == "")
+      outputfilename = "../bin/mpm_points.txt";
    
     
     Mesh points;
-    points.ReadFile(inputFilename);
-    points.WriteOutputFile(outputFilename);  
+    points.read_file(inputfilename);
+    points.write_output_file(outputfilename);  
 
   }
 
