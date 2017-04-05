@@ -63,7 +63,7 @@ int main() {
       for (int j = 0; j < num_points_x; ++j) {
         std::array<double, 2> coord{{x1 + j * x_spacing, y1 + i * y_spacing}};
         std::shared_ptr<MaterialPoint> point = std::make_shared<MaterialPoint>(k, coord);
-        points.push_back(point);
+        points.emplace_back(point);
         k += 1;
       }
 
