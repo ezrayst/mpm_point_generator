@@ -29,8 +29,7 @@ public:
     for (int i = 0; i < num_points_y; ++i)
       for (int j = 0; j < num_points_x; ++j) {
         std::array<double, 2> coord{{x1 + j * x_spacing, y1 + i * y_spacing}};
-        std::shared_ptr<MaterialPoint> point(new MaterialPoint(k, coord));
-        points_.emplace_back(point);
+        points_.emplace_back(std::unique_ptr<MaterialPoint> (new MaterialPoint(k, coord)));
         k += 1;
       }
   }
@@ -53,5 +52,5 @@ private:
   //! These are the parameters of the class Mesh
   //! points is the vector that contains the MaterialPoint
 
-   std::vector<std::shared_ptr<MaterialPoint>> points_;
+   std::vector<std::unique_ptr<MaterialPoint>> points_;
 };
