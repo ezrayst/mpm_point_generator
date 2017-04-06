@@ -27,22 +27,21 @@ int main() {
     std::string inputfilename;
     std::string outputfilename;
 
-    std::cout << "Type the input file name, default: [../bin/input_coords.txt]: ";
+    std::cout
+        << "Type the input file name, default: [../bin/input_coords.txt]: ";
     std::getline(std::cin, inputfilename);
 
-    if (inputfilename == "")
-      inputfilename = "../bin/input_coords.txt";
+    if (inputfilename == "") inputfilename = "../bin/input_coords.txt";
 
-    std::cout << "Type the output file name, default: [../bin/mpm_points.txt]: ";  
+    std::cout
+        << "Type the output file name, default: [../bin/mpm_points.txt]: ";
     std::getline(std::cin, outputfilename);
-   
-    if (outputfilename == "")
-      outputfilename = "../bin/mpm_points.txt";
-   
-    
+
+    if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
+
     Mesh points;
     points.read_file(inputfilename);
-    points.write_output_file(outputfilename);  
+    points.write_output_file(outputfilename);
 
   }
 

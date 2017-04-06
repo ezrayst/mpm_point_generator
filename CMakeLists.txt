@@ -35,6 +35,7 @@ include_directories(
 # executable
 SET(mpm_point_gen_src
     src/main.cc
+    include/mesh.cc
 )
 add_executable(mpm_point_generator
                ${mpm_point_gen_src}
