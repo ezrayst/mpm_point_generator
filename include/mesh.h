@@ -19,4 +19,7 @@ private:
   //! points_ is the vector that contains the MaterialPoint
 
   std::vector<std::unique_ptr<MaterialPoint>> points_;
+
+  void generate_material_points(const double&, const double&, const double&, const double&, const double&, const double&);
+  
 };
