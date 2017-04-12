@@ -13,7 +13,15 @@ void Mesh::read_file(const std::string& inputfilename) {
   std::cout << "The input file has been read."
             << "\n";
 
-  generate_material_points(x1, x2, y1, y2, x_spacing, y_spacing);
+  std::array<double, 2> corner1{{x1, y1}};
+  std::array<double, 2> corner2{{x2, y2}};
+  std::array<std::array<double, 2>, 2> corner{{corner1, corner2}};
+  Mesh::compute_corners(corner);
+
+  std::array<double, 2> space{{x_spacing, y_spacing}};      
+  Mesh::compute_spacing(space);
+
+  generate_material_points();
 }
 
 void Mesh::write_output_file(const std::string& outputfilename) {
@@ -28,11 +36,16 @@ void Mesh::write_output_file(const std::string& outputfilename) {
             << "\n";
 }
 
-void Mesh::generate_material_points(const double& x1, const double& x2,
-                                    const double& y1, const double& y2,
-                                    const double& x_spacing,
-                                    const double& y_spacing) {
+void Mesh::generate_material_points() {
   //! Calculations to generate material points
+
+  double x1 = corners().at(0).at(0);
+  double y1 = corners().at(0).at(1);
+  double x2 = corners().at(1).at(0);
+  double y2 = corners().at(1).at(1);
+  double x_spacing = spacing().at(0);
+  double y_spacing = spacing().at(1);
+
   const int num_points_x = static_cast<int>(ceil((x2 - x1) / x_spacing + 1));
   const int num_points_y = static_cast<int>(ceil((y2 - y1) / y_spacing + 1));
 
