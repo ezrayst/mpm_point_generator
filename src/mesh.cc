@@ -63,7 +63,7 @@ void Mesh::generate_material_points() {
     //! Make function for corners
     //! Input would include x and y coordinate of the corner
     corners_.push_back(corner1);
-    corners_.push_bamake cleck(corner2);
+    corners_.push_back(corner2);
   };
 
   void Mesh::register_spacing(const double& x_spacing, const double& y_spacing) {
