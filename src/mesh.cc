@@ -15,11 +15,11 @@ void Mesh::read_file(const std::string& inputfilename) {
 
   std::array<double, 2> corner1{{x1, y1}};
   std::array<double, 2> corner2{{x2, y2}};
-  std::array<std::array<double, 2>, 2> corner{{corner1, corner2}};
-  Mesh::compute_corners(corner);
+  Mesh::register_corners(corner1, corner2);
 
-  std::array<double, 2> space{{x_spacing, y_spacing}};      
-  Mesh::compute_spacing(space);
+  Mesh::register_spacing(x_spacing, y_spacing);
+
+  Mesh::compute_num_points(corners_, spacing_);
 
   generate_material_points();
 }
@@ -39,23 +39,46 @@ void Mesh::write_output_file(const std::string& outputfilename) {
 void Mesh::generate_material_points() {
   //! Calculations to generate material points
 
-  double x1 = corners().at(0).at(0);
-  double y1 = corners().at(0).at(1);
-  double x2 = corners().at(1).at(0);
-  double y2 = corners().at(1).at(1);
-  double x_spacing = spacing().at(0);
-  double y_spacing = spacing().at(1);
-
-  const int num_points_x = static_cast<int>(ceil((x2 - x1) / x_spacing + 1));
-  const int num_points_y = static_cast<int>(ceil((y2 - y1) / y_spacing + 1));
+  //! double x1 = corners_.at(0).at(0);
+  //! double y1 = corners_.at(0).at(1);
+  //! double x2 = corners_.at(1).at(0);
+  //! double y2 = corners_.at(1).at(1);
+  //! double x_spacing = spacing_.at(0);
+  //! double y_spacing = spacing_.at(1);
+  //! int num_points_x = num_points_.at(0);
+  //! int num_points_y = num_points_.at(1);
 
   int k = 0;
 
-  for (int i = 0; i < num_points_y; ++i)
-    for (int j = 0; j < num_points_x; ++j) {
-      std::array<double, 2> coord{{x1 + j * x_spacing, y1 + i * y_spacing}};
+  for (int i = 0; i < num_points_.at(1); ++i)
+    for (int j = 0; j < num_points_.at(0); ++j) {
+      std::array<double, 2> coord{{corners_.at(0).at(0) + j * spacing_.at(0), corners_.at(0).at(1) + i * spacing_.at(1)}};
       points_.emplace_back(
           std::unique_ptr<MaterialPoint>(new MaterialPoint(k, coord)));
       k += 1;
     }
 }
+
+  void Mesh::register_corners(const std::array<double, 2> &corner1, const std::array<double, 2> &corner2) {
+    //! Make function for corners
+    //! Input would include x and y coordinate of the corner
+    corners_.push_back(corner1);
+    corners_.push_bamake cleck(corner2);
+  };
+
+  void Mesh::register_spacing(const double& x_spacing, const double& y_spacing) {
+    //! Make function for spacing
+    spacing_.push_back(x_spacing);
+    spacing_.push_back(y_spacing);
+  }
+
+  void Mesh::compute_num_points(std::vector<std::array<double, 2>> &corners, std::vector<double> &spacing) {
+    
+    //! Make function to compute the total number of points in both x and y directions
+
+    const int num_points_x = static_cast<int>(ceil((corners.at(1).at(0) - corners.at(0).at(0)) / spacing.at(0) + 1));
+    const int num_points_y = static_cast<int>(ceil((corners.at(1).at(1) - corners.at(0).at(1)) / spacing.at(1) + 1));
+    
+    num_points_.push_back(num_points_x);
+    num_points_.push_back(num_points_y);
+  }

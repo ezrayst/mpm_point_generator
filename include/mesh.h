@@ -16,29 +16,22 @@ public:
 
   void generate_material_points();
 
-  //! Make function for corners
-  //! Input would include x and y coordinate of the corner
-  void compute_corners(const std::array<std::array<double, 2>, 2> corners) {
-    corners_ = corners;
-  };
+  void register_corners(const std::array<double, 2> &, const std::array<double, 2> &);
 
-  //! Make function for spacing
-  void compute_spacing(const std::array<double, 2> spacings) {
-    spacing_ = spacings;
-  }
+  void register_spacing(const double&, const double&);
 
-  //! To get the corners_ and spacing_
-  std::array<std::array<double, 2>, 2> const corners() { return corners_ ; }
-  std::array<double, 2> const spacing() { return spacing_ ; }
+  void compute_num_points(std::vector<std::array<double, 2>> &, std::vector<double> &);
 
 private:
   //! These are the parameters of the class Mesh
   //! points_ is the vector that contains the MaterialPoint
   //! corners_ contains arrays of x-y coordinates of the corners
   //! spacing_ contains the spacing specified in x and y directions 
+  //! num_points_ contains the number of points in x and y directions
   
   std::vector<std::unique_ptr<MaterialPoint>> points_;
-  std::array<std::array<double, 2>, 2> corners_;
-  std::array<double, 2> spacing_;
+  std::vector<std::array<double, 2>> corners_;
+  std::vector<double> spacing_;
+  std::vector<int> num_points_;
 
 };
