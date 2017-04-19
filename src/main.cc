@@ -39,9 +39,7 @@ int main() {
 
     if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
 
-    Mesh points;
-    points.read_file(inputfilename);
-    points.write_output_file(outputfilename);
+    Mesh points(inputfilename, outputfilename);
 
   }
 
