@@ -11,11 +11,9 @@ class Mesh {
 public:
   //! Make a constructor for Mesh which contains corners and spacings
 
-  Mesh(const std::string &inputfilename, const std::string &outputfilename) {
+  Mesh(const std::string &inputfilename) {
     read_file(inputfilename);
     compute_num_points();
-    generate_material_points();
-    write_output_file(outputfilename);
   }
 
   //! The rest of functions

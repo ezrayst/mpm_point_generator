@@ -39,7 +39,9 @@ int main() {
 
     if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
 
-    Mesh points(inputfilename, outputfilename);
+    Mesh points(inputfilename);
+    points.generate_material_points();
+    points.write_output_file(outputfilename);
 
   }
 
