@@ -34,16 +34,15 @@ void Mesh::write_output_file(const std::string& outputfilename) {
             << "\n";
 }
 
-void Mesh::compute_num_points(std::vector<std::array<double, 2>>& corners,
-                              std::vector<double>& spacing) {
+void Mesh::compute_num_points() {
 
   //! Make function to compute the total number of points in both x and y
   //! directions
 
-  const int num_points_x = static_cast<int>(
-      ceil((corners.at(1).at(0) - corners.at(0).at(0)) / spacing.at(0) + 1));
-  const int num_points_y = static_cast<int>(
-      ceil((corners.at(1).at(1) - corners.at(0).at(1)) / spacing.at(1) + 1));
+  const int num_points_x = static_cast<int>(ceil(
+      (corners_.at(1).at(0) - corners_.at(0).at(0)) / spacings_.at(0) + 1));
+  const int num_points_y = static_cast<int>(ceil(
+      (corners_.at(1).at(1) - corners_.at(0).at(1)) / spacings_.at(1) + 1));
 
   num_points_.push_back(num_points_x);
   num_points_.push_back(num_points_y);

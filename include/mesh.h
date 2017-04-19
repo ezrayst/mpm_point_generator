@@ -13,7 +13,7 @@ public:
 
   Mesh(const std::string &inputfilename, const std::string &outputfilename) {
     read_file(inputfilename);
-    compute_num_points(corners_, spacings_);
+    compute_num_points();
     generate_material_points();
     write_output_file(outputfilename);
   }
@@ -24,8 +24,7 @@ public:
 
   void write_output_file(const std::string &);
 
-  void compute_num_points(std::vector<std::array<double, 2>> &,
-                          std::vector<double> &);
+  void compute_num_points();
 
   void generate_material_points();
 
