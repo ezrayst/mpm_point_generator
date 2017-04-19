@@ -39,9 +39,9 @@ int main() {
 
     if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
 
-    Mesh points(inputfilename);
-    points.generate_material_points();
-    points.write_output_file(outputfilename);
+    std::unique_ptr<Mesh> points(new Mesh(inputfilename));
+    points->generate_material_points();
+    points->write_output_file(outputfilename);
 
   }
 
