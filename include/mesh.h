@@ -7,6 +7,8 @@
 
 #include "point.h"
 
+template <unsigned Tdim>
+
 class Mesh {
 public:
   //! Make a constructor for Mesh which contains corners and spacings
@@ -38,8 +40,8 @@ private:
   //! num_points_ contains the total number of points in x and y directions.
   //! This depends on specified spacings
 
-  std::vector<std::unique_ptr<MaterialPoint>> points_;
-  std::vector<std::array<double, 2>> corners_;
+  std::vector<std::unique_ptr<MaterialPoint<Tdim>>> points_;
+  std::vector<std::array<double, Tdim>> corners_;
   std::vector<double> spacings_;
   std::vector<int> num_points_;
 };
