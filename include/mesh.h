@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 
+#include "mesh.tcc"
 #include "point.h"
 
 template <unsigned Tdim>

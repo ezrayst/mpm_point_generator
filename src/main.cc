@@ -19,7 +19,7 @@
 #include <memory>
 #include <vector>
 
-#include "../src/mesh.tcc"
+#include "mesh.h"
 
 int main() {
   try {
@@ -41,7 +41,7 @@ int main() {
     std::getline(std::cin, outputfilename);
     if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
 
-    const unsigned Tdim = 3;
+    const unsigned Tdim = 1;
 
     std::unique_ptr<Mesh<Tdim>> points(new Mesh<Tdim>(inputfilename));
     points->generate_material_points();
