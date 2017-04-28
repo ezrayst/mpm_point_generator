@@ -35,7 +35,7 @@ include_directories(
 # executable
 SET(mpm_point_gen_src
     src/main.cc
-    src/mesh.cc
+    src/mesh.tcc
 )
 add_executable(mpm_point_generator
                ${mpm_point_gen_src}
@@ -44,6 +44,7 @@ add_executable(mpm_point_generator
 # Unit test
 SET(test_src
   ${PROJECT_SOURCE_DIR}/tests/test.cc
+  ${PROJECT_SOURCE_DIR}/tests/point_test.cc
 )   
 add_executable(mpm_point_generator_test
 	       ${test_src}

@@ -19,7 +19,7 @@
 #include <memory>
 #include <vector>
 
-#include "mesh.cc"
+#include "../src/mesh.tcc"
 
 int main() {
   try {
@@ -41,12 +41,6 @@ int main() {
     std::getline(std::cin, outputfilename);
     if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
 
-    std::cout << "Type of problem 1D [1], 2D [2] or 3D [3], default: [3]:";
-    std::getline(std::cin, Tdim_str);
-    if (Tdim_str == "") Tdim_str = "3";
-
-    //! const int Tidim = std::stoi(Tdim_str);
-    //! I don't quite know how to do this. Is this right?
     const unsigned Tdim = 3;
 
     std::unique_ptr<Mesh<Tdim>> points(new Mesh<Tdim>(inputfilename));
