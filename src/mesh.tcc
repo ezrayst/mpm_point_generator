@@ -1,4 +1,4 @@
-// #include "mesh.h"
+#include "mesh.h"
 
 template <unsigned Tdim>
 void Mesh<Tdim>::read_file(const std::string& inputfilename) {

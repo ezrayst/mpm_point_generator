@@ -1,7 +1,7 @@
 // #include "mesh.h"
 
 template <unsigned Tdim>
-void Mesh<Tdim>::read_file(const std::string& inputfilename) {
+void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   double x1, x2, y1, y2, z1, z2, x_spacing, y_spacing, z_spacing;
 
   std::ifstream inputFile;
@@ -39,9 +39,9 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 }
 
 template <unsigned Tdim>
-void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
+void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
   std::ofstream outputFile(outputfilename);
-  for (auto const& point : points_) {
+  for (auto const &point : points_) {
     if (Tdim == 1) {
       outputFile << point->id() << "," << point->coords().at(0) << "\n";
     } else if (Tdim == 2) {
@@ -59,8 +59,7 @@ void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
             << "\n";
 }
 
-template <unsigned Tdim>
-void Mesh<Tdim>::compute_num_points() {
+template <unsigned Tdim> void Mesh<Tdim>::compute_num_points() {
 
   //! Make function to compute the total number of points in both x and y
   //! directions
@@ -82,8 +81,7 @@ void Mesh<Tdim>::compute_num_points() {
   }
 }
 
-template <unsigned Tdim>
-void Mesh<Tdim>::generate_material_points() {
+template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
   //! Calculations to generate material points
   //! i refers to z
   //! j refers to y

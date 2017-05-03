@@ -1,3 +1,6 @@
+#ifndef MESH_H
+#define MESH_H
+
 #include <array>
 #include <cmath>
 #include <fstream>
@@ -5,7 +8,6 @@
 #include <memory>
 #include <vector>
 
-#include "mesh.tcc"
 #include "point.h"
 
 template <unsigned Tdim>
@@ -46,3 +48,7 @@ private:
   std::vector<double> spacings_;
   std::vector<int> num_points_;
 };
+
+#include "mesh.tcc"
+
+#endif /* MESH_H */

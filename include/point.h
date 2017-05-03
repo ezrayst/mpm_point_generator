@@ -1,3 +1,6 @@
+#ifndef POINT_H
+#define POINT_H
+
 #include <array>
 #include <vector>
 
@@ -25,3 +28,5 @@ private:
   unsigned id_;
   std::array<double, Tdim> coords_;
 };
+
+#endif /* POINT_H */
