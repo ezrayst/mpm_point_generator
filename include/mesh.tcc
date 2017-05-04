@@ -1,7 +1,7 @@
 #include "mesh.h"
 
 template <unsigned Tdim>
-void Mesh<Tdim>::read_file(const std::string& inputfilename) {
+void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   double x1, x2, y1, y2, z1, z2, x_spacing, y_spacing, z_spacing;
 
   std::ifstream inputFile;
@@ -15,8 +15,8 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
   std::cout << "The input file has been read."
             << "\n";
 
-  // std::array<double, Tdim> corner1;
-  // std::array<double, Tdim> corner2;
+  std::array<double, Tdim> corner1;
+  std::array<double, Tdim> corner2;
   std::vector<double> spacings;
 
   if (Tdim == 1) {
@@ -39,10 +39,20 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 }
 
 template <unsigned Tdim>
-void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
+void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
   std::ofstream outputFile(outputfilename);
-  for (auto const& point : points_) {
-    outputFile << point->id() << "," << point->coords() << "\n";
+  for (auto const &point : points_) {
+    if (Tdim == 1) {
+      outputFile << point->id() << "," << point->coords().at(0) << "\n";
+
+    } else if (Tdim == 2) {
+      outputFile << point->id() << "," << point->coords().at(0) << ","
+                 << point->coords().at(1) << "\n";
+
+    } else {
+      outputFile << point->id() << "," << point->coords().at(0) << ","
+                 << point->coords().at(1) << "," << point->coords().at(2) << "\n";;
+    }
   }
 
   outputFile.close();
@@ -50,8 +60,7 @@ void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
             << "\n";
 }
 
-template <unsigned Tdim>
-void Mesh<Tdim>::compute_num_points() {
+template <unsigned Tdim> void Mesh<Tdim>::compute_num_points() {
 
   //! Make function to compute the total number of points in both x and y
   //! directions
@@ -73,8 +82,7 @@ void Mesh<Tdim>::compute_num_points() {
   }
 }
 
-template <unsigned Tdim>
-void Mesh<Tdim>::generate_material_points() {
+template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
   //! Calculations to generate material points
   //! i refers to z
   //! j refers to y
@@ -95,7 +103,6 @@ void Mesh<Tdim>::generate_material_points() {
 
   int l = 0;
   // std::array<double, Tdim> coord;
-
 
   if (Tdim == 1) {
     for (int i = 0; i < num_points_.at(0); ++i) {
