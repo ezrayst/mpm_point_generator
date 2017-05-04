@@ -30,7 +30,6 @@ int main() {
     //! User input inputFilename and outputFilename
     std::string inputfilename;
     std::string outputfilename;
-    std::string Tdim_str;
 
     std::cout
         << "Type the input file name, default: [../bin/input_coords.txt]: ";
