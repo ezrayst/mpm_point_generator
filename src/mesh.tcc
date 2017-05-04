@@ -42,16 +42,8 @@ template <unsigned Tdim>
 void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
   std::ofstream outputFile(outputfilename);
   for (auto const& point : points_) {
-    if (Tdim == 1) {
-      outputFile << point->id() << "," << point->coords().at(0) << "\n";
-    } else if (Tdim == 2) {
-      outputFile << point->id() << "," << point->coords().at(0) << ","
-                 << point->coords().at(1) << "\n";
-    } else {
-      outputFile << point->id() << "," << point->coords().at(0) << ","
-                 << point->coords().at(1) << "," << point->coords().at(2)
+      outputFile << point->id() << "," << point->coords()
                  << "\n";
-    }
   }
 
   outputFile.close();
