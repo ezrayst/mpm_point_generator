@@ -15,25 +15,24 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   std::cout << "The input file has been read."
             << "\n";
 
-  std::array<double, Tdim> corner1;
-  std::array<double, Tdim> corner2;
-  std::vector<double> spacings;
+  std::vector<double> corner1{x1};
+  std::vector<double> corner2{x2};
+  std::vector<double> spacings{x_spacing};
 
-  if (Tdim == 1) {
-    std::array<double, Tdim> corner1{x1};
-    std::array<double, Tdim> corner2{x2};
-    spacings = {x_spacing};
-  } else if (Tdim == 2) {
-    std::array<double, Tdim> corner1{x1, y1};
-    std::array<double, Tdim> corner2{x2, y2};
-    spacings = {x_spacing, y_spacing};
-  } else {
-    std::array<double, Tdim> corner1{x1, y1, z1};
-    std::array<double, Tdim> corner2{x2, y2, z2};
-    spacings = {x_spacing, y_spacing, z_spacing};
+  if (Tdim == 2) {
+    corner1.push_back(y1);
+    corner2.push_back(y2);
+    spacings.push_back(y_spacing);
+  } else if (Tdim == 3) {
+    corner1.push_back(y1);
+    corner1.push_back(z1);
+    corner2.push_back(y2);
+    corner2.push_back(z2);
+    spacings.push_back(y_spacing);
+    spacings.push_back(z_spacing);
   }
 
-  std::vector<std::array<double, Tdim>> corners{corner1, corner2};
+  std::vector<std::vector<double>> corners{corner1, corner2};
   corners_ = corners;
   spacings_ = spacings;
 }
@@ -51,7 +50,9 @@ void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
 
     } else {
       outputFile << point->id() << "," << point->coords().at(0) << ","
-                 << point->coords().at(1) << "," << point->coords().at(2) << "\n";;
+                 << point->coords().at(1) << "," << point->coords().at(2)
+                 << "\n";
+      ;
     }
   }
 
@@ -102,12 +103,10 @@ template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
   //! int num_points_z = num_points_.at(2);
 
   int l = 0;
-  // std::array<double, Tdim> coord;
 
   if (Tdim == 1) {
     for (int i = 0; i < num_points_.at(0); ++i) {
-      std::array<double, Tdim> coord{corners_.at(0).at(0) +
-                                     i * spacings_.at(0)};
+      std::vector<double> coord{corners_.at(0).at(0) + i * spacings_.at(0)};
       points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
           new MaterialPoint<Tdim>(l, coord)));
       ++l;
@@ -115,9 +114,8 @@ template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
   } else if (Tdim == 2) {
     for (int i = 0; i < num_points_.at(1); ++i)
       for (int j = 0; j < num_points_.at(0); ++j) {
-        std::array<double, Tdim> coord{
-            corners_.at(0).at(0) + j * spacings_.at(0),
-            corners_.at(0).at(1) + i * spacings_.at(1)};
+        std::vector<double> coord{corners_.at(0).at(0) + j * spacings_.at(0),
+                                  corners_.at(0).at(1) + i * spacings_.at(1)};
         points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
             new MaterialPoint<Tdim>(l, coord)));
         ++l;
@@ -126,10 +124,9 @@ template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
     for (int i = 0; i < num_points_.at(2); ++i)
       for (int j = 0; j < num_points_.at(1); ++j)
         for (int k = 0; k < num_points_.at(0); ++k) {
-          std::array<double, Tdim> coord{
-              corners_.at(0).at(0) + k * spacings_.at(0),
-              corners_.at(0).at(1) + j * spacings_.at(1),
-              corners_.at(0).at(2) + i * spacings_.at(2)};
+          std::vector<double> coord{corners_.at(0).at(0) + k * spacings_.at(0),
+                                    corners_.at(0).at(1) + j * spacings_.at(1),
+                                    corners_.at(0).at(2) + i * spacings_.at(2)};
           points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
               new MaterialPoint<Tdim>(l, coord)));
           ++l;

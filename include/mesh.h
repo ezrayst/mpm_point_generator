@@ -44,7 +44,7 @@ private:
   //! This depends on specified spacings
 
   std::vector<std::unique_ptr<MaterialPoint<Tdim>>> points_;
-  std::vector<std::array<double, Tdim>> corners_;
+  std::vector<std::vector<double>> corners_;
   std::vector<double> spacings_;
   std::vector<int> num_points_;
 };
