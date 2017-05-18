@@ -1,8 +1,10 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <array>
+//! C Header
 #include <cmath>
+
+#include <array>
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -10,29 +12,32 @@
 
 #include "point.h"
 
-template <unsigned Tdim>
+//! \brief    Class for the mesh
+//! \tparam   Tdim (1D, 2D or 3D)
 
-class Mesh {
+template <unsigned Tdim> class Mesh {
 public:
   //! Make a constructor for Mesh which contains corners and spacings
-
   Mesh(const std::string &inputfilename) {
     read_file(inputfilename);
     compute_num_points();
   }
 
-  //! The rest of functions
-
+  //! Function to read the inputfile and store the corners and spacings
   void read_file(const std::string &);
 
+  //! Function to produce the output file containing the materials points
+  //! generated
   void write_output_file(const std::string &);
 
+  //! Small function to convert spacings to number of points generated in the
+  //! directions
   void compute_num_points();
 
+  //! Main function to generate the material points
   void generate_material_points();
 
   //! Function to get private variable num_points_
-
   const std::vector<int> num_points() { return num_points_; }
 
 private:

@@ -2,35 +2,36 @@
 
 template <unsigned Tdim>
 void Mesh<Tdim>::read_file(const std::string &inputfilename) {
-  double x1, x2, y1, y2, z1, z2, x_spacing, y_spacing, z_spacing;
+
+  //! Declare vectors of corner and spacings
+  std::vector<double> corner1;
+  std::vector<double> corner2;
+  std::vector<double> spacings;
 
   std::ifstream inputFile;
   inputFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
   inputFile.open(inputfilename);
 
-  inputFile >> x1 >> y1 >> z1 >> x2 >> y2 >> z2 >> x_spacing >> y_spacing >>
-      z_spacing;
+  //! Create a temporary variable that would be used in the for loop
+  double file;
+
+  //! Loop through the input file to get the data
+  for (int i = 0; i < Tdim * 3; ++i) {
+    inputFile >> file;
+
+    if (i < Tdim) {
+      corner1.push_back(file);
+    } else if (i < Tdim * 2) {
+      corner2.push_back(file);
+    } else {
+      spacings.push_back(file);
+    }
+  }
+
   inputFile.close();
 
   std::cout << "The input file has been read."
             << "\n";
-
-  std::vector<double> corner1{x1};
-  std::vector<double> corner2{x2};
-  std::vector<double> spacings{x_spacing};
-
-  if (Tdim == 2) {
-    corner1.push_back(y1);
-    corner2.push_back(y2);
-    spacings.push_back(y_spacing);
-  } else if (Tdim == 3) {
-    corner1.push_back(y1);
-    corner1.push_back(z1);
-    corner2.push_back(y2);
-    corner2.push_back(z2);
-    spacings.push_back(y_spacing);
-    spacings.push_back(z_spacing);
-  }
 
   std::vector<std::vector<double>> corners{corner1, corner2};
   corners_ = corners;

@@ -4,9 +4,10 @@
 #include <array>
 #include <vector>
 
-template <unsigned Tdim>
+//! \brief    Class for the points that are generated
+//! \tparam   Tdim (1D, 2D or 3D)
 
-class MaterialPoint {
+template <unsigned Tdim> class MaterialPoint {
 public:
   //! Make constructor for material point
   MaterialPoint(unsigned id, const std::vector<double> coords) {
