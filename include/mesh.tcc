@@ -6,6 +6,7 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   //! Declare vectors of corner and spacings
   std::vector<double> corner1;
   std::vector<double> corner2;
+  std::vector<std::vector<double>> corners{corner1, corner2};
   std::vector<double> spacings;
 
   std::ifstream inputFile;
@@ -16,13 +17,13 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   double file;
 
   //! Loop through the input file to get the data
-  for (int i = 0; i < Tdim * 3; ++i) {
+  for (unsigned i = 0; i < Tdim * 3; ++i) {
     inputFile >> file;
 
     if (i < Tdim) {
-      corner1.push_back(file);
+      corners.at(0).push_back(file);
     } else if (i < Tdim * 2) {
-      corner2.push_back(file);
+      corners.at(1).push_back(file);
     } else {
       spacings.push_back(file);
     }
@@ -33,7 +34,6 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
   std::cout << "The input file has been read."
             << "\n";
 
-  std::vector<std::vector<double>> corners{corner1, corner2};
   corners_ = corners;
   spacings_ = spacings;
 }
@@ -43,8 +43,12 @@ void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
   std::ofstream outputFile(outputfilename);
 
   //! Write number of points generated
-  outputFile << num_points_.at(0) * num_points_.at(1) * num_points_.at(2)
-             << "\n";
+  unsigned tot_points = 1;
+  for (auto const &num_point_dir : num_points_) {  
+    tot_points *= num_point_dir;   
+  }
+
+  outputFile << tot_points << "\n";
 
   //! Set precision
   outputFile.precision(5);
@@ -54,18 +58,10 @@ void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
   //! Write the coordinates of the points generated
   //! [X] [Y] [Z] --> check the precision of the number
   for (auto const &point : points_) {
-    if (Tdim == 1) {
-      outputFile << point->coords().at(0) << "\n";
-
-    } else if (Tdim == 2) {
-      outputFile << point->coords().at(0) << "\t" << point->coords().at(1)
-                 << "\n";
-
-    } else {
-      outputFile << point->coords().at(0) << "\t" << point->coords().at(1)
-                 << "\t" << point->coords().at(2) << "\n";
-      ;
+    for (auto const &coordinate : point->coords()) {
+      outputFile << coordinate << "\t";  
     }
+    outputFile << "\n";
   }
 
   outputFile.close();
@@ -77,21 +73,12 @@ template <unsigned Tdim> void Mesh<Tdim>::compute_num_points() {
 
   //! Make function to compute the total number of points in both x and y
   //! directions
+  double number_point;
 
-  const int num_points_x = static_cast<int>(ceil(
-      (corners_.at(1).at(0) - corners_.at(0).at(0)) / spacings_.at(0) + 1));
-  num_points_.push_back(num_points_x);
-
-  if (Tdim >= 2) {
-    const int num_points_y = static_cast<int>(ceil(
-        (corners_.at(1).at(1) - corners_.at(0).at(1)) / spacings_.at(1) + 1));
-    num_points_.push_back(num_points_y);
-  }
-
-  if (Tdim >= 3) {
-    const int num_points_z = static_cast<int>(ceil(
-        (corners_.at(1).at(2) - corners_.at(0).at(2)) / spacings_.at(2) + 1));
-    num_points_.push_back(num_points_z);
+  for (unsigned i = 0; i < Tdim; ++i) {  
+    number_point = static_cast<int>(ceil(
+      (corners_.at(1).at(i) - corners_.at(0).at(i)) / spacings_.at(i) + 1));
+    num_points_.push_back(number_point); 
   }
 }
 

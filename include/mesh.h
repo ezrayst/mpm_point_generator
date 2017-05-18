@@ -1,7 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-//! C Header
 #include <cmath>
 
 #include <array>
