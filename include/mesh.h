@@ -6,10 +6,10 @@
 
 #include <array>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <iomanip>
 
 #include "point.h"
 
