@@ -41,17 +41,23 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
 template <unsigned Tdim>
 void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
   std::ofstream outputFile(outputfilename);
+
+  //! Write number of points generated
+  outputFile << num_points_.at(0) * num_points_.at(1) * num_points_.at(0) << "\n";
+
+  //! Write the coordinates of the points generated 
+  //! [X] [Y] [Z] --> Check the precision of the number
   for (auto const &point : points_) {
     if (Tdim == 1) {
-      outputFile << point->id() << "," << point->coords().at(0) << "\n";
+      outputFile << point->coords().at(0) << "\n";
 
     } else if (Tdim == 2) {
-      outputFile << point->id() << "," << point->coords().at(0) << ","
+      outputFile << point->coords().at(0) << "\t"
                  << point->coords().at(1) << "\n";
 
     } else {
-      outputFile << point->id() << "," << point->coords().at(0) << ","
-                 << point->coords().at(1) << "," << point->coords().at(2)
+      outputFile << point->coords().at(0) << "\t"
+                 << point->coords().at(1) << "\t" << point->coords().at(2)
                  << "\n";
       ;
     }
