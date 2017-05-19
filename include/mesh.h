@@ -15,20 +15,21 @@
 //! \brief    Class for the mesh
 //! \tparam   Tdim (1D, 2D or 3D)
 
-template <unsigned Tdim> class Mesh {
-public:
+template <unsigned Tdim>
+class Mesh {
+ public:
   //! Make a constructor for Mesh which contains corners and spacings
-  Mesh(const std::string &inputfilename) {
+  Mesh(const std::string& inputfilename) {
     read_file(inputfilename);
     compute_num_points();
   }
 
   //! Function to read the inputfile and store the corners and spacings
-  void read_file(const std::string &);
+  void read_file(const std::string&);
 
   //! Function to produce the output file containing the materials points
   //! generated
-  void write_output_file(const std::string &);
+  void write_output_file(const std::string&);
 
   //! Small function to convert spacings to number of points generated in the
   //! directions
@@ -40,7 +41,7 @@ public:
   //! Function to get private variable num_points_
   const std::vector<int> num_points() { return num_points_; }
 
-private:
+ private:
   //! These are the parameters of the class Mesh
   //! points_ is the vector that contains the MaterialPoint
   //! corners_ contains arrays of x-y coordinates of the corners

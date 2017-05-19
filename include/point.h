@@ -7,8 +7,9 @@
 //! \brief    Class for the points that are generated
 //! \tparam   Tdim (1D, 2D or 3D)
 
-template <unsigned Tdim> class MaterialPoint {
-public:
+template <unsigned Tdim>
+class MaterialPoint {
+ public:
   //! Make constructor for material point
   MaterialPoint(unsigned id, const std::vector<double> coords) {
     id_ = id;
@@ -21,7 +22,7 @@ public:
   unsigned id() const { return id_; }
   std::vector<double> coords() const { return coords_; }
 
-private:
+ private:
   //! These are the parameters of the class MaterialPoint
   //! id_ would be a positive integer starting from 0 as index
   //! coords_ would be an array of size Tdim, containing x and y coordinates

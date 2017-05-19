@@ -1,13 +1,12 @@
 #include "mesh.h"
 
 template <unsigned Tdim>
-void Mesh<Tdim>::read_file(const std::string &inputfilename) {
+void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 
   //! Declare vectors of corner and spacings
   std::vector<double> corner1;
   std::vector<double> corner2;
   std::vector<std::vector<double>> corners{corner1, corner2};
-  std::vector<double> spacings;
 
   std::ifstream inputFile;
   inputFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -25,7 +24,7 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
     } else if (i < Tdim * 2) {
       corners.at(1).push_back(file);
     } else {
-      spacings.push_back(file);
+      spacings_.push_back(file);
     }
   }
 
@@ -35,17 +34,16 @@ void Mesh<Tdim>::read_file(const std::string &inputfilename) {
             << "\n";
 
   corners_ = corners;
-  spacings_ = spacings;
 }
 
 template <unsigned Tdim>
-void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
+void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
   std::ofstream outputFile(outputfilename);
 
   //! Write number of points generated
   unsigned tot_points = 1;
-  for (auto const &num_point_dir : num_points_) {  
-    tot_points *= num_point_dir;   
+  for (auto const& num_point_dir : num_points_) {
+    tot_points *= num_point_dir;
   }
 
   outputFile << tot_points << "\n";
@@ -57,9 +55,9 @@ void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
 
   //! Write the coordinates of the points generated
   //! [X] [Y] [Z] --> check the precision of the number
-  for (auto const &point : points_) {
-    for (auto const &coordinate : point->coords()) {
-      outputFile << coordinate << "\t";  
+  for (auto const& point : points_) {
+    for (double coordinate : point->coords()) {
+      outputFile << coordinate << "\t";
     }
     outputFile << "\n";
   }
@@ -69,20 +67,21 @@ void Mesh<Tdim>::write_output_file(const std::string &outputfilename) {
             << "\n";
 }
 
-template <unsigned Tdim> void Mesh<Tdim>::compute_num_points() {
+template <unsigned Tdim>
+void Mesh<Tdim>::compute_num_points() {
 
   //! Make function to compute the total number of points in both x and y
   //! directions
   double number_point;
 
-  for (unsigned i = 0; i < Tdim; ++i) {  
-    number_point = static_cast<int>(ceil(
-      (corners_.at(1).at(i) - corners_.at(0).at(i)) / spacings_.at(i) + 1));
-    num_points_.push_back(number_point); 
+  for (unsigned i = 0; i < Tdim; ++i) {
+    num_points_.emplace_back(static_cast<int>(ceil(
+        (corners_.at(1).at(i) - corners_.at(0).at(i)) / spacings_.at(i) + 1)));
   }
 }
 
-template <unsigned Tdim> void Mesh<Tdim>::generate_material_points() {
+template <unsigned Tdim>
+void Mesh<Tdim>::generate_material_points() {
   //! Calculations to generate material points
   //! i refers to z
   //! j refers to y
