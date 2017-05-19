@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+#include <algorithm>
 #include <array>
 #include <fstream>
 #include <iomanip>
@@ -13,6 +14,7 @@
 #include "point.h"
 
 //! \brief    Class for the mesh
+//! \details  
 //! \tparam   Tdim (1D, 2D or 3D)
 
 template <unsigned Tdim>
@@ -39,7 +41,7 @@ class Mesh {
   void generate_material_points();
 
   //! Function to get private variable num_points_
-  const std::vector<int> num_points() { return num_points_; }
+  const std::vector<unsigned> num_points() { return num_points_; }
 
  private:
   //! These are the parameters of the class Mesh
@@ -52,7 +54,7 @@ class Mesh {
   std::vector<std::unique_ptr<MaterialPoint<Tdim>>> points_;
   std::vector<std::vector<double>> corners_;
   std::vector<double> spacings_;
-  std::vector<int> num_points_;
+  std::vector<unsigned> num_points_;
 };
 
 #include "mesh.tcc"

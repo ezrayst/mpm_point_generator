@@ -5,6 +5,7 @@
 #include <vector>
 
 //! \brief    Class for the points that are generated
+//! \details  
 //! \tparam   Tdim (1D, 2D or 3D)
 
 template <unsigned Tdim>
