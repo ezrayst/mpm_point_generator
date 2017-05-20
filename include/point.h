@@ -20,14 +20,14 @@ class MaterialPoint {
   //! Get the private properties using two functions
   //! To return id_
   unsigned id() const { return id_; }
-  
+
   //! To return coords_
   std::vector<double> coords() const { return coords_; }
 
  private:
   //! id_ is the index would be a positive integer starting from 0 as index
   unsigned id_;
-  
+
   //! coords_ would be an array of size Tdim, containing x,y,z coordinates
   std::vector<double> coords_;
 };

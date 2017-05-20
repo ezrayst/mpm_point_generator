@@ -1,6 +1,5 @@
 #include "mesh.h"
 
-
 //! \brief    Open and read input files
 //! \details  Get input, store in private variables
 //! \tparam   Tdim (1D, 2D or 3D)
@@ -16,31 +15,29 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
   corners_.resize(2);
 
   //! Create a temporary variable that would be used in the for loop
-  double value; 
+  double value;
 
   //! Loop through the input file to get the data
   for (unsigned i = 0; i < Tdim; ++i) {
-      inputFile >> value;
-      corners_.at(0).push_back(value);
+    inputFile >> value;
+    corners_.at(0).push_back(value);
   }
 
   for (unsigned i = 0; i < Tdim; ++i) {
-      inputFile >> value;
-      corners_.at(1).push_back(value);
+    inputFile >> value;
+    corners_.at(1).push_back(value);
   }
 
   for (unsigned i = 0; i < Tdim; ++i) {
-      inputFile >> value;
-      spacings_.push_back(value);
+    inputFile >> value;
+    spacings_.push_back(value);
   }
 
   //! Close input file and print notification
   inputFile.close();
   std::cout << "The input file has been read."
             << "\n";
-
 }
-
 
 //! \brief    Open and write output files
 //! \details  Write total number of points, and coordinates of points
@@ -50,7 +47,8 @@ void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
   std::ofstream outputFile(outputfilename);
 
   //! Comput eand write the total number of points generated
-  unsigned tot_points = std::accumulate(num_points_.begin(), num_points_.end(), 1, std::multiplies<unsigned>()); 
+  unsigned tot_points = std::accumulate(num_points_.begin(), num_points_.end(),
+                                        1, std::multiplies<unsigned>());
   outputFile << tot_points << "\n";
 
   //! Set precision
@@ -75,7 +73,6 @@ void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
             << "\n";
 }
 
-
 //! \brief    Calculate the number of points in each direction
 //! \details  Get spacings_ (private), calculate, and store into private
 //! \tparam   Tdim (1D, 2D or 3D)
@@ -88,7 +85,6 @@ void Mesh<Tdim>::compute_num_points() {
         (corners_.at(1).at(i) - corners_.at(0).at(i)) / spacings_.at(i) + 1)));
   }
 }
-
 
 //! \brief    Generate MaterialPoints and store them
 //! \details  Generalize private variables, loop to generate points
