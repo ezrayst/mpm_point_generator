@@ -8,22 +8,25 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
   inputFile.open(inputfilename);
 
   //! Create a temporary variable that would be used in the for loop
-  double file;
+  double value;
 
   //! Declare 2 vectors of the corner
-  corners_ = {{},{}};
+  corners_.resize(2);
 
   //! Loop through the input file to get the data
-  for (unsigned i = 0; i < Tdim * 3; ++i) {
-    inputFile >> file;
+  for (unsigned i = 0; i < Tdim; ++i) {
+      inputFile >> value;
+      corners_.at(0).push_back(value);
+  }
 
-    if (i < Tdim) {
-      corners_.at(0).push_back(file);
-    } else if (i < Tdim * 2) {
-      corners_.at(1).push_back(file);
-    } else {
-      spacings_.push_back(file);
-    }
+  for (unsigned i = 0; i < Tdim; ++i) {
+      inputFile >> value;
+      corners_.at(1).push_back(value);
+  }
+
+  for (unsigned i = 0; i < Tdim; ++i) {
+      inputFile >> value;
+      spacings_.push_back(value);
   }
 
   inputFile.close();
