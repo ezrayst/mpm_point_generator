@@ -37,11 +37,11 @@ int main() {
     if (inputfilename == "") inputfilename = "../bin/input_coords.txt";
 
     std::cout
-        << "Type the output file name, default: [../bin/mpm_points.txt]: ";
+        << "Type the output file name, default: [../bin/soilParticles.smf]: ";
     std::getline(std::cin, outputfilename);
-    if (outputfilename == "") outputfilename = "../bin/mpm_points.txt";
+    if (outputfilename == "") outputfilename = "../bin/soilParticles.smf";
 
-    const unsigned Tdim = 3;
+    const unsigned Tdim = 2;
 
     std::unique_ptr<Mesh<Tdim>> points(new Mesh<Tdim>(inputfilename));
     points->generate_material_points();
