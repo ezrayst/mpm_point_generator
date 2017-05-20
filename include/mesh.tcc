@@ -33,6 +33,7 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 
   std::cout << "The input file has been read."
             << "\n";
+
 }
 
 template <unsigned Tdim>
@@ -96,34 +97,24 @@ void Mesh<Tdim>::generate_material_points() {
   //! int num_points_y = num_points_.at(1);
   //! int num_points_z = num_points_.at(2);
 
-  unsigned l = 0;
+  //! Add empty vectors so they are general
+  for (unsigned i = Tdim; i <= 3; ++i) {
+    num_points_.push_back(1);
+    corners_.at(0).push_back(0);
+    corners_.at(1).push_back(0);
+    spacings_.push_back(0);
+  }
 
-  if (Tdim == 1) {
-    for (unsigned i = 0; i < num_points_.at(0); ++i) {
-      std::vector<double> coord{corners_.at(0).at(0) + i * spacings_.at(0)};
-      points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
-          new MaterialPoint<Tdim>(l, coord)));
-      ++l;
-    }
-  } else if (Tdim == 2) {
-    for (unsigned i = 0; i < num_points_.at(1); ++i)
-      for (unsigned j = 0; j < num_points_.at(0); ++j) {
-        std::vector<double> coord{corners_.at(0).at(0) + j * spacings_.at(0),
-                                  corners_.at(0).at(1) + i * spacings_.at(1)};
+  //! Main loop to generate material points - generalized 3D
+  unsigned l = 0;
+  for (unsigned i = 0; i < num_points_.at(2); ++i)
+    for (unsigned j = 0; j < num_points_.at(1); ++j)
+      for (unsigned k = 0; k < num_points_.at(0); ++k) {
+        std::vector<double> coord{corners_.at(0).at(0) + k * spacings_.at(0),
+                                  corners_.at(0).at(1) + j * spacings_.at(1),
+                                  corners_.at(0).at(2) + i * spacings_.at(2)};
         points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
             new MaterialPoint<Tdim>(l, coord)));
         ++l;
       }
-  } else {
-    for (unsigned i = 0; i < num_points_.at(2); ++i)
-      for (unsigned j = 0; j < num_points_.at(1); ++j)
-        for (unsigned k = 0; k < num_points_.at(0); ++k) {
-          std::vector<double> coord{corners_.at(0).at(0) + k * spacings_.at(0),
-                                    corners_.at(0).at(1) + j * spacings_.at(1),
-                                    corners_.at(0).at(2) + i * spacings_.at(2)};
-          points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
-              new MaterialPoint<Tdim>(l, coord)));
-          ++l;
-        }
-  }
 }
