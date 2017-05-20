@@ -4,31 +4,31 @@
 #include <array>
 #include <vector>
 
-//! \brief    Class for the points that are generated
-//! \details  
+//! \brief    Class to store points with index and coordinates
+//! \details  Includes constructor to make the MaterialPoint
 //! \tparam   Tdim (1D, 2D or 3D)
 
 template <unsigned Tdim>
 class MaterialPoint {
  public:
-  //! Make constructor for material point
+  //! \brief  Make constructor for point including index and coordinates
   MaterialPoint(unsigned id, const std::vector<double> coords) {
     id_ = id;
     coords_ = coords;
   }
 
   //! Get the private properties using two functions
-  //! To get the id_ and coords_
-
+  //! To return id_
   unsigned id() const { return id_; }
+  
+  //! To return coords_
   std::vector<double> coords() const { return coords_; }
 
  private:
-  //! These are the parameters of the class MaterialPoint
-  //! id_ would be a positive integer starting from 0 as index
-  //! coords_ would be an array of size Tdim, containing x and y coordinates
-
+  //! id_ is the index would be a positive integer starting from 0 as index
   unsigned id_;
+  
+  //! coords_ would be an array of size Tdim, containing x,y,z coordinates
   std::vector<double> coords_;
 };
 
