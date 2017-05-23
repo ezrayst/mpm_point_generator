@@ -33,6 +33,12 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
     spacings_.push_back(value);
   }
 
+  inputFile >> value;
+  density_ = value;
+
+  inputFile >> value;
+  K0_ = value;
+
   //! Close input file and print notification
   inputFile.close();
   std::cout << "The input file has been read."
@@ -43,18 +49,13 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 //! \details  Write total number of points, and coordinates of points
 //! \tparam   Tdim (1D, 2D or 3D)
 template <unsigned Tdim>
-void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
+void Mesh<Tdim>::write_output_points(const std::string& outputfilename) {
   std::ofstream outputFile(outputfilename);
 
-  //! Comput eand write the total number of points generated
-  unsigned tot_points = std::accumulate(num_points_.begin(), num_points_.end(),
-                                        1, std::multiplies<unsigned>());
-  outputFile << tot_points << "\n";
-
-  //! Set precision
-  // outputFile.precision(5);
-  // outputFile.setf(std::ios::fixed);
-  // outputFile.setf(std::ios::showpoint);
+  //! Compute and write the total number of points generated
+  tot_points_ = std::accumulate(num_points_.begin(), num_points_.end(), 1,
+                                std::multiplies<unsigned>());
+  outputFile << tot_points_ << "\n";
 
   //! Write the coordinates of the points generated
   //! [X] [Y] [Z]
@@ -69,8 +70,34 @@ void Mesh<Tdim>::write_output_file(const std::string& outputfilename) {
 
   //! Close output file and print notification
   outputFile.close();
-  std::cout << "The output file has been generated."
+  std::cout << "The output file for soil particles has been generated."
             << "\n";
+}
+
+//! \brief    Open and write output files
+//! \details  Write total number of points, and coordinates of points
+//! \tparam   Tdim (1D, 2D or 3D)
+template <unsigned Tdim>
+void Mesh<Tdim>::write_output_stress(const std::string& outputfilename) {
+  std::ofstream outputFile(outputfilename);
+
+  //! Write the total number of points generated
+  outputFile << tot_points_ << "\n";
+
+  //! Write the stress on the points generated
+  for (auto const& point : stresses_) {
+    outputFile << point->id() << "\t";
+    for (double stress : point->stress()) {
+      outputFile << stress << "\t";
+    }
+    outputFile << "\n";
+  }
+
+  //! Close output file and print notification
+  outputFile.close();
+  std::cout
+      << "The output file for initial stresses of particles has been generated."
+      << "\n";
 }
 
 //! \brief    Calculate the number of points in each direction
@@ -128,4 +155,36 @@ void Mesh<Tdim>::generate_material_points() {
             new MaterialPoint<Tdim>(l, coord)));
         ++l;
       }
+}
+
+//! \brief    Generate initial stress of each point and store the
+//! \details  Get ver_stress, hor_stress, and shear (not used)
+//! \tparam   Tdim (1D, 2D or 3D)
+template <unsigned Tdim>
+void Mesh<Tdim>::generate_initial_stress() {
+
+  //! Declare temp value of horizontal and vertical stresses;
+  double ver_stress;
+  double hor_stress;
+
+  //! ycoord contains a vector of the y-coordinates (vertical) of each point
+  std::vector<double> ycoord;
+  for (auto const& point : points_) {
+    ycoord.push_back(point->coords().at(1));
+  }
+
+  //! Get the maximum height for each point
+  double max_height = *std::max_element(ycoord.begin(), ycoord.end());
+
+  //! Loop through the points to get vertical and horizontal stresses
+  //! Note that tau (shear stress) is assumed 0
+  unsigned l = 0;
+  for (double coord : ycoord) {
+    ver_stress = (-(max_height - coord) * density_);
+    hor_stress = (-(max_height - coord) * density_ * K0_);
+    std::array<double, 6> stress{hor_stress, ver_stress, hor_stress, 0, 0, 0};
+    stresses_.emplace_back(
+        std::unique_ptr<InitStress<Tdim>>(new InitStress<Tdim>(l, stress)));
+    ++l;
+  }
 }
