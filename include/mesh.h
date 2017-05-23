@@ -14,6 +14,11 @@
 #include "initStress.h"
 #include "point.h"
 
+#include "json.hpp"
+
+//! Short alias for convenience
+using json = nlohmann::json;
+
 //! \brief    Class to generate MaterialPoint
 //! \details  Get input, generate material points, write output
 //! \tparam   Tdim (1D, 2D or 3D)
