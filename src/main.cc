@@ -33,9 +33,9 @@ int main() {
     std::string outputfilename_stress;
 
     std::cout
-        << "Type the input file name, default: [../bin/soilParticles.txt]: ";
+        << "Type the input file name, default: [../bin/soilParticles.json]: ";
     std::getline(std::cin, inputfilename);
-    if (inputfilename == "") inputfilename = "../bin/soilParticles.txt";
+    if (inputfilename == "") inputfilename = "../bin/soilParticles.json";
 
     std::cout << "Type the output file name for soil particles, default: "
                  "[../bin/soilParticles.smf]: ";
