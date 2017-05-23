@@ -12,7 +12,7 @@ template <unsigned Tdim>
 class MaterialPoint {
  public:
   //! \brief  Make constructor for point including index and coordinates
-  MaterialPoint(unsigned id, const std::vector<double> coords) {
+  MaterialPoint(unsigned id, const std::array<double, 3> coords) {
     id_ = id;
     coords_ = coords;
   }
@@ -22,14 +22,14 @@ class MaterialPoint {
   unsigned id() const { return id_; }
 
   //! To return coords_
-  std::vector<double> coords() const { return coords_; }
+  std::array<double, 3> coords() const { return coords_; }
 
  private:
   //! id_ is the index would be a positive integer starting from 0 as index
   unsigned id_;
 
   //! coords_ would be an array of size Tdim, containing x,y,z coordinates
-  std::vector<double> coords_;
+  std::array<double, 3> coords_;
 };
 
 #endif /* POINT_H */

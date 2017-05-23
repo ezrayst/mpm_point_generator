@@ -148,9 +148,9 @@ void Mesh<Tdim>::generate_material_points() {
   for (unsigned i = 0; i < num_points_.at(2); ++i)
     for (unsigned j = 0; j < num_points_.at(1); ++j)
       for (unsigned k = 0; k < num_points_.at(0); ++k) {
-        std::vector<double> coord{corners_.at(0).at(0) + k * spacings_.at(0),
-                                  corners_.at(0).at(1) + j * spacings_.at(1),
-                                  corners_.at(0).at(2) + i * spacings_.at(2)};
+        std::array<double, 3> coord{corners_.at(0).at(0) + k * spacings_.at(0),
+                                    corners_.at(0).at(1) + j * spacings_.at(1),
+                                    corners_.at(0).at(2) + i * spacings_.at(2)};
         points_.emplace_back(std::unique_ptr<MaterialPoint<Tdim>>(
             new MaterialPoint<Tdim>(l, coord)));
         ++l;
