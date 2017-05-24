@@ -7,4 +7,4 @@ Generation of Material Points
 
 Note to Developers
 
-1. Format using clang-format: `clang-format -i ./src/*` and `clang-format -i ./include/*`
+1. Format using clang-format: `clang-format -i ./src/*`, `clang-format -i ./include/*` and `clang-format -i ./tests/*`
