@@ -94,6 +94,11 @@ void Mesh<Tdim>::compute_num_points() {
     num_points_.emplace_back(static_cast<unsigned>(ceil(
         (corners_.at(1).at(i) - corners_.at(0).at(i)) / spacings_.at(i) + 1)));
   }
+
+  //! Fill empty vectors so they are general 3D
+  for (unsigned i = Tdim; i <= 3; ++i) {
+    num_points_.push_back(1);
+  }
 }
 
 //! \brief    Generate MaterialPoints and store them
@@ -117,14 +122,6 @@ void Mesh<Tdim>::generate_material_points() {
   //! int num_points_x = num_points_.at(0);
   //! int num_points_y = num_points_.at(1);
   //! int num_points_z = num_points_.at(2);
-
-  //! Fill empty vectors so they are general 3D
-  for (unsigned i = Tdim; i <= 3; ++i) {
-    num_points_.push_back(1);
-    corners_.at(0).push_back(0);
-    corners_.at(1).push_back(0);
-    spacings_.push_back(0);
-  }
 
   //! Main loop to generate material points - generalized 3D
   unsigned l = 0;
