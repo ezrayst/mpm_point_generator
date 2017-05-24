@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "mesh.h"
+#include "catch.hpp"
 
 int main() {
   try {
