@@ -11,7 +11,7 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 
   //! Open input file
   std::ifstream inputFile(inputfilename);
-  // inputFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+  inputFile.exceptions(std::ifstream::badbit);
 
   json j;
   inputFile >> j;
