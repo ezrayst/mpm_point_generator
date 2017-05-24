@@ -6,43 +6,21 @@
 template <unsigned Tdim>
 void Mesh<Tdim>::read_file(const std::string& inputfilename) {
 
-  //! Open input file
-  std::ifstream inputFile(inputfilename);
-  inputFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
   //! Declare 2 vectors of the corner
   corners_.resize(2);
 
-  // //! Create a temporary variable that would be used in the for loop
-  // double value;
+  //! Open input file
+  std::ifstream inputFile(inputfilename);
+  // inputFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-  // //! Loop through the input file to get the data
-  // for (unsigned i = 0; i < Tdim; ++i) {
-  //   inputFile >> value;
-  //   corners_.at(0).push_back(value);
-  // }
-
-  // for (unsigned i = 0; i < Tdim; ++i) {
-  //   inputFile >> value;
-  //   corners_.at(1).push_back(value);
-  // }
-
-  // for (unsigned i = 0; i < Tdim; ++i) {
-  //   inputFile >> value;
-  //   spacings_.push_back(value);
-  // }
-
-  // inputFile >> value;
-  // density_ = value;
-
-  // inputFile >> value;
-  // K0_ = value;
-
-  // //! Trial with JSON
   json j;
   inputFile >> j;
 
-  std::cout << j;
+  corners_.at(0) = j["corner1"].get<std::vector<double>>();
+  corners_.at(1) = j["corner2"].get<std::vector<double>>();
+  spacings_ = j["spacing"].get<std::vector<double>>();
+  density_ = j["SoilProperties"]["density"].get<double>();
+  K0_ = j["SoilProperties"]["K0"].get<double>();
 
   //! Close input file and print notification
   inputFile.close();
