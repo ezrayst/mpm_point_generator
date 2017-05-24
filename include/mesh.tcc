@@ -13,9 +13,9 @@ void Mesh<Tdim>::read_file(const std::string& inputfilename) {
   std::ifstream inputFile(inputfilename);
   inputFile.exceptions(std::ifstream::badbit);
 
+  //! Read file and store to private variables
   json j;
   inputFile >> j;
-
   corners_.at(0) = j["corner1"].get<std::vector<double>>();
   corners_.at(1) = j["corner2"].get<std::vector<double>>();
   spacings_ = j["spacing"].get<std::vector<double>>();
