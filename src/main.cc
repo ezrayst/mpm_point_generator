@@ -50,7 +50,7 @@ int main() {
     if (outputfilename_stress == "")
       outputfilename_stress = "../bin/initStressSoilP.dat";
 
-    const unsigned Tdim = 2;
+    const unsigned Tdim = 3;
 
     std::unique_ptr<Mesh<Tdim>> points(new Mesh<Tdim>(inputfilename));
     points->generate_material_points();

@@ -160,8 +160,8 @@ void Mesh<Tdim>::generate_initial_stress() {
   //! Note that tau (shear stress) is assumed 0
   unsigned l = 0;
   for (double coord : ycoord) {
-    ver_stress = (-(max_height - coord) * density_);
-    hor_stress = (-(max_height - coord) * density_ * K0_);
+    ver_stress = (-(max_height - coord) * density_ * 9.81);
+    hor_stress = ver_stress * K0_;
     std::array<double, 6> stress{hor_stress, ver_stress, hor_stress, 0, 0, 0};
     stresses_.emplace_back(
         std::unique_ptr<InitStress<Tdim>>(new InitStress<Tdim>(l, stress)));
